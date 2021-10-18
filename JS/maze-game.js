@@ -21,61 +21,54 @@ levels['0'] = {
     x: 4,
     y: 4
   },
-  theme: 'easy',
-  levelDim: 64,
+  theme: 'Easy',
+  levelDimension: 48,
 };
 
-function Game(id, level) {
-  this.el = document.getElementById(id);
+function mazeGame(id, level) {
+  this.element = document.getElementById(id);
   this.tileTypes = ['floor', 'wall'];
-  this.tileDim = level.levelDim;
+  this.tileDimension = level.levelDimension;
   this.map = level.map;
   this.theme = level.theme;
   this.player = { ...level.player };
   this.goal = { ...level.goal };
 }
 
-Game.prototype.populateMap = function () {
-  this.el.className = 'maze-game-container ' + this.theme;
+mazeGame.prototype.populateMap = function () {
+  this.element.className = 'maze-game-container ' + this.theme;
   let tiles = document.getElementById('tiles');
   for (var y = 0; y < this.map.length; ++y) {
-
     for (var x = 0; x < this.map[y].length; ++x) {
-
       let tileCode = this.map[y][x];
       let tileType = this.tileTypes[tileCode];
-      let tile = this.createEl(x,y,tileType);
-      
-       tiles.appendChild(tile);
+      let tile = this.createEl(x, y, tileType);
+      tiles.appendChild(tile);
     }
   }
 }
 
-Game.prototype.createEl = function (x, y, type) {
-
-  let el = document.createElement('div');
-
-  el.className = type;
-  el.style.width = el.style.height = this.tileDim + 'px';
-  el.style.left = x * this.tileDim + 'px';
-
-  el.style.top = y * this.tileDim + 'px';
-
-  return el;
+mazeGame.prototype.createEl = function (x, y, type) {
+  let element = document.createElement('div');
+  element.className = type;
+  element.style.width = element.style.height = this.tileDimension + 'px';
+  element.style.left = x * this.tileDimension + 'px';
+  element.style.top = y * this.tileDimension + 'px';
+  return element;
 }
 
-Game.prototype.sizeUp = function() {
-  
-  let map  = this.el.querySelector('.maze-map');
-  map.style.height = this.map.length * this.tileDim + 'px'; 
-  map.style.width = this.map[0].length * this.tileDim + 'px';
+mazeGame.prototype.sizeUp = function () {
+
+  let map = this.element.querySelector('.maze-map');
+  map.style.height = this.map.length * this.tileDimension + 'px';
+  map.style.width = this.map[0].length * this.tileDimension + 'px';
 };
 
 function init() {
-  let myGame = new Game('maze-game-container-1',levels[0]);
-    
-   myGame.populateMap();
-   myGame.sizeUp();
+  let myGame = new mazeGame('maze-game-container-1', levels[0]);
+
+  myGame.populateMap();
+  myGame.sizeUp();
 }
 init();
 
