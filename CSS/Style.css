@@ -2,12 +2,55 @@ body {
   font-family: Calibri;
   transition: 0.2s ease;
   text-align: center;
-  background-color: rgb(53, 120, 245);
+  background-color: rgb(78, 140, 255);
 }
 
-.navbar {
-  background-color: black;
-  color: white;
+#main-head {
+  background-color: rgb(24, 24, 24);
+}
+
+.heading {
+  font-family: 'IM Fell English SC', serif;
+  font-weight: bold;
+}
+
+#game-heading {
+  background-color: rgb(94, 94, 94);
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: right;
+  border-left: 1px solid rgb(236, 235, 235);
+  border-top: 1px solid rgb(236, 235, 235);
+}
+
+li a {
+  display: block;
+  color: rgb(236, 235, 235);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: rgb(24, 24, 24);
+}
+
+.text {
+  color: rgb(236, 235, 235);
+}
+
+#home {
+  float: left;
+  border-right: 1px solid rgb(236, 235, 235);
 }
 
 .maze-game-container.success  {
@@ -20,11 +63,19 @@ body {
   font-family: 'Tangerine', cursive;
   font-size: 30px;
   background-color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-width: 550px;
+  border-bottom: 5px solid rgb(78, 78, 78);
+  border-right: 5px solid rgb(78, 78, 78);
+  border-top: 5px solid rgb(207, 207, 207);
+  border-left: 5px solid rgb(207, 207, 207);
 }
 
 #maze-map-and-controls {
   display: flex;
   justify-content: center;
+  padding-bottom: 10px;
 }
 
 p {
@@ -43,11 +94,11 @@ div.layer div {
   position: absolute;
 }
 
-.easy .floor {
+.Easy .floor {
   background-color: rgb(116, 116, 116);
   border: 2px solid rgb(88, 88, 88);
 }
-.easy .wall {
+.Easy .wall {
   background-color: rgb(146, 93, 31);
   border: 2px solid rgb(180, 114, 39);
 }
@@ -59,14 +110,14 @@ div.layer div {
 }
 
 .player {
-  background-color: #90ee90;
-  border: 1px solid green;
+  background-color: #fff;
+  border: 2px solid gold;
   transition: left 0.2s linear, top 0.2s linear;
 }
 
 .exit {
-  background-color: #FFD700;
-  border: 1px solid #98720b;
+  background-color: #000;
+  border: 2px solid gold;
 }
 
 #exit-message {
@@ -82,4 +133,26 @@ div.layer div {
 .maze-game-container #success-msg {
   opacity: 1;
   transition: opacity 0.2 ease;
+}
+
+.player-console{
+  background-color: #98720b;
+  border-top: 5px solid #c9970e;
+  border-left: 5px solid #c9970e;
+  border-bottom: 5px solid #5c4505;
+  border-right: 5px solid #5c4505;
+}
+
+.footer {
+  font-family: 'IM Fell English SC', serif;
+  background-color: rgb(24, 24, 24);
+  text-align: right;
+  font-weight: bold;
+}
+
+.border {
+  border-bottom: 5px solid rgb(78, 78, 78);
+  border-right: 5px solid rgb(78, 78, 78);
+  border-top: 5px solid rgb(207, 207, 207);
+  border-left: 5px solid rgb(207, 207, 207);
 }
