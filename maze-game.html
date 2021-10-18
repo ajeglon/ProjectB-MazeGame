@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../CSS/Style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
   <title>Olde Worlde Phunne - Maze Game</title>
 </head>
 
@@ -18,32 +18,33 @@
 
   <body>
     <Header>
-      <h1>Olde Worlde Phunne</h1>
-      <h2>Maze Game</h2>
+      <h1 id="site-heading" class="heading">Olde Worlde Phunne</h1>
+      <nav class="navbar">
+        <a href="/">Home</a> 
+        <a href="/">News</a> 
+        <a href="/">About</a> 
+        <a href="/">Socials</a> 
+      </nav>
     </Header>
-    <nav>
-      Home
-      News
-      About
-      Socials
-    </nav>
+    <h2 id="game-heading" class="heading">Maze Game</h2>
     <!-- game container -->
-    <div id="game-container-1" class="game-container">
-      <div id="map-and-controls">
+    <div id="maze-game-container" class="maze-game-container">
+      <div id="maze-map-and-controls">
         <!-- start game map -->
-        <div id="game-map-1" class="game-map">
+        <div id="maze-map-1" class="maze-map">
           <div id="tiles" class="layer"></div>
           <div id="sprites" class="layer"></div>
-          <div id="success-msg">Goal reached!</div>
+          <div id="exit-message">Goal reached!</div>
         </div>
       </div>
       <!-- end game map -->
       <!-- Player console-->
       <div class="player-console">
-        <p id="text-1" class="text">
-          Use cursor keys or buttons.
-        <p>
+        <p id="instruction-text" class="text">
+          Use cursor keys, WASD or buttons to move.
+        <p> 
       </div>
+      <p>Instructions:</p>
     </div>
     <footer>
       Copyright Olde Worlde Phunne
