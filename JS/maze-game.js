@@ -22,7 +22,7 @@ levels['0'] = {
     y: 4
   },
   theme: 'easy',
-  levelDim: 32,
+  levelDim: 64,
 };
 
 function Game(id, level) {
@@ -64,10 +64,18 @@ Game.prototype.createEl = function (x, y, type) {
   return el;
 }
 
+Game.prototype.sizeUp = function() {
+  
+  let map  = this.el.querySelector('.maze-map');
+  map.style.height = this.map.length * this.tileDim + 'px'; 
+  map.style.width = this.map[0].length * this.tileDim + 'px';
+};
+
 function init() {
-  let myGame = new Game('maze-game-container',levels[0]);
+  let myGame = new Game('maze-game-container-1',levels[0]);
     
    myGame.populateMap();
+   myGame.sizeUp();
 }
 init();
 
