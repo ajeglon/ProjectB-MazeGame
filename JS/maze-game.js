@@ -8,9 +8,9 @@ levels['0'] = {
     [0, 0, 0, 1, 0, 0, 1, 0, 1, 0],
     [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
     [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
+    [0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
     [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
+    [0, 1, 0, 1, 0, 0, 1, 0, 0, 0],
     [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
   ],
   player: {
@@ -18,8 +18,8 @@ levels['0'] = {
     y: 4
   },
   exit: {
-    x: 9,
-    y: 10
+    x: 0,
+    y: 5
   },
   theme: 'Easy',
   levelDimension: 48,
@@ -78,6 +78,7 @@ mazeGame.prototype.placeSprite = function (type) {
 mazeGame.prototype.keyboardListener = function () {
   document.addEventListener('keydown', event => {
     this.movePlayer(event);
+    this.checkGoal();
   });
 }
 
@@ -107,44 +108,84 @@ mazeGame.prototype.movePlayer = function (event) {
       break;
   }
 }
-mazeGame.prototype.keyboardListener = function() {
+mazeGame.prototype.keyboardListener = function () {
   document.addEventListener('keydown', event => {
     this.movePlayer(event);
   });
 }
 
-mazeGame.prototype.moveLeft = function(sprite) {
-
+mazeGame.prototype.moveLeft = function (sprite) {
+  if (this.player.x == 0) {
+    return;
+  }
+  let nextTile = this.map[this.player.y][this.player.x - 1];
+  if (nextTile == 1) {
+    return;
+  }
   this.player.x -= 1;
 
   this.updateHoriz(sprite);
 }
-mazeGame.prototype.moveUp = function() {
-
+mazeGame.prototype.moveUp = function () {
+  if (this.player.y == 0) {
+    return;
+  }
+  let nextTile = this.map[this.player.y - 1][this.player.x];
+  if (nextTile == 1) {
+    return;
+  }
   this.player.y -= 1;
 
   this.updateVert();
 }
-mazeGame.prototype.moveRight = function(sprite) {
+mazeGame.prototype.moveRight = function (sprite) {
+  if (this.player.x == this.map[this.player.y].length - 1) {
+    return;
+  }
+  let nextTile = this.map[this.player.y][this.player.x + 1];
 
+  if (nextTile == 1) {
+    return;
+  }
   this.player.x += 1;
 
   this.updateHoriz(sprite);
 }
-mazeGame.prototype.moveDown = function() {
-
+mazeGame.prototype.moveDown = function () {
+  if (this.player.y == this.map.length - 1) {
+    return;
+  }
+  let nextTile = this.map[this.player.y + 1][this.player.x];
+  if (nextTile == 1) {
+    return;
+  }
   this.player.y += 1;
 
   this.updateVert();
 }
 
-mazeGame.prototype.updateVert = function() {
+mazeGame.prototype.updateVert = function () {
   this.player.element.style.top = this.player.y * this.tileDimension + 'px';
 };
 
-mazeGame.prototype.updateHoriz = function(sprite) {
+mazeGame.prototype.updateHoriz = function (sprite) {
   this.player.element.style.left = this.player.x * this.tileDimension + 'px';
 };
+
+
+mazeGame.prototype.checkGoal = function () {
+
+  let mazeGameContainer = document.querySelector('maze-game-container');
+
+  if (this.player.y == this.exit.y &&
+    this.player.x == this.exit.x) {
+    mazeGameContainer.className = 'exit-message';
+  }
+  else {
+    mazeGameContainer.className = '';
+  }
+
+}
 
 
 function init() {
