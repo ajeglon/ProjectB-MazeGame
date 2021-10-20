@@ -21,10 +21,10 @@
     <Header id="main-head" class="heading border text">
       <h1 id="site-heading">Olde Worlde Phunne</h1>
       <ul class="navbar text">
-        <li id="home"><a href="">Home</a></li> 
-        <li><a href="">Socials</a></li>  
-        <li><a href="">About</a></li>  
-        <li><a href="">News</a></li>  
+        <li id="home"><a href="">Home</a></li>
+        <li><a href="">Socials</a></li>
+        <li><a href="">About</a></li>
+        <li><a href="">News</a></li>
       </ul>
     </Header>
     <h2 id="game-heading" class="heading border text">Maze Game</h2>
@@ -34,23 +34,44 @@
         <!-- start game map -->
         <div id="maze-map-1" class="maze-map">
           <div id="tiles" class="layer"></div>
+          <div id="gold" class="layer"></div>
           <div id="sprites" class="layer"></div>
-          <div id="exit-message">Goal reached!</div>
+          <div id="success-msg">
+            You made it to the exit!
+            <br>
+            Would you like to leave the dungeon? (Click on the maze)
+            <br>
+            Or keep exploring for more loot? (Continue Moving)
+          </div>
         </div>
       </div>
       <!-- end game map -->
       <!-- Player console-->
       <div class="player-console">
-        <p id="instruction-text" class="text">
-          Use cursor keys, WASD or buttons to move.
-        <p> 
+        <div class="movement-buttons">
+          <button id="up"></button>
+          <div id="horiz">
+            <button id="left"></button>
+            <button id="right"></button>
+          </div>
+          <button id="down"></button>
         </div>
-      <ul class="text">Instructions:
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
+        <div id="stats">
+          <div id="attack-and-defend">
+            <button>Attack: </button>
+            <button>Defend: </button>
+          </div>
+          <div id="health-and-gold">
+            <br>
+            <button>Health: </button>
+            <button>Gold: </button>
+          </div>
+        </div>
+      </div>
+      <div id="instruction-text" class="text">
+        <h3>Instructions:</h3>
+        <p>Use cursor keys, WASD or buttons to move.</p>
+      </div>
     </div>
     <footer class="footer border text">
       Copyright Olde Worlde Phunne

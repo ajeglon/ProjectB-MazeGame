@@ -53,7 +53,7 @@ li a:hover {
   border-right: 1px solid rgb(236, 235, 235);
 }
 
-.maze-game-container.success  {
+#maze-map-and-controls.success{
   background-color: #b7f0b7;
   transition: 0.2s ease;
 }
@@ -75,11 +75,11 @@ li a:hover {
 #maze-map-and-controls {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding-bottom: 10px;
 }
 
 p {
-  margin: 50px 0px; /* 10 ox */
   padding: 0px;
   text-align: center;
 }
@@ -120,17 +120,25 @@ div.layer div {
   border: 2px solid gold;
 }
 
-#exit-message {
+.maze-gold {
+  transform-origin: center;
+  transform: scale(0.4);
+  background-color: gold;
+  border: 1px solid #000;
+}
+
+#success-msg {
   opacity: 0;
   transition: opacity 0.2s ease;
   position: absolute;
   padding: 5px 5px;
   background-color: rgba(0,0,0,0.5);
   color: white;
+  -webkit-text-stroke: 0.2px black;
   width: calc(100% - 8px);
 }
 
-.maze-game-container #success-msg {
+#maze-map-and-controls.success #success-msg{
   opacity: 1;
   transition: opacity 0.2 ease;
 }
@@ -141,6 +149,11 @@ div.layer div {
   border-left: 5px solid #c9970e;
   border-bottom: 5px solid #5c4505;
   border-right: 5px solid #5c4505;
+  min-height: 125px;
+}
+
+#stats {
+  float: right;
 }
 
 .footer {
@@ -155,4 +168,107 @@ div.layer div {
   border-right: 5px solid rgb(78, 78, 78);
   border-top: 5px solid rgb(207, 207, 207);
   border-left: 5px solid rgb(207, 207, 207);
+}
+
+.movement-buttons {
+  float: left;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.movement-buttons button {
+  width: 38px;
+  height: 38px;
+  background-color: rgb(94, 94, 94);
+  border-bottom: 1px solid rgb(78, 78, 78);
+  border-right: 1px solid rgb(78, 78, 78);
+  border-top: 1px solid rgb(207, 207, 207);
+  border-left: 1px solid rgb(207, 207, 207);
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+#stats button {
+  background-color: rgb(94, 94, 94);
+  border-bottom: 1px solid rgb(78, 78, 78);
+  border-right: 1px solid rgb(78, 78, 78);
+  border-top: 1px solid rgb(207, 207, 207);
+  border-left: 1px solid rgb(207, 207, 207);
+  border-radius: 5px;
+}
+
+#instruction-text {
+  background-color: #000;
+}
+
+.movement-buttons #horiz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button#right {
+  margin-left: 5px;
+}
+button#left {
+  margin-right: 5px;
+}
+
+.movement-buttons button::before {
+  content:'';
+  width: 0px;
+  position: absolute;
+}
+
+button#left::before {
+  border-top: 10px solid transparent;
+  border-right: 15px solid #000;
+  border-bottom: 10px solid transparent;
+  left: 10px;
+  top: 9px;
+}
+button#right::before {
+  border-top: 10px solid transparent;
+  border-left: 15px solid #000;
+  border-bottom: 10px solid transparent;
+  left: 12px;
+  top: 9px;
+}
+button#up::before {
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 15px solid #000;
+  left: 9px;
+  top: 9px;
+}
+button#down::before {
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-top: 15px solid #000;
+  left: 9px;
+  top: 12px;
+}
+
+@keyframes wobble {
+  0% { transform: scale(0.85) translate(1px, 1px); }
+  10% { transform: scale(0.85) translate(-1px, -2px); }
+  20% { transform: scale(0.85) translate(-3px, 0px); }
+  30% { transform: scale(0.85) translate(3px, 2px); }
+  40% { transform: scale(0.85) translate(1px, -1px);}
+  50% { transform: scale(0.85) translate(-1px, 2px); }
+  60% { transform: scale(0.85) translate(-3px, 1px); }
+  70% { transform: scale(0.85) translate(3px, 1px); }
+  80% { transform: scale(0.85) translate(-1px, -1px); }
+  90% { transform: scale(0.85) translate(1px, 2px); }
+  100% { transform: scale(0.85) translate(1px, -2px);; }
+}
+
+.player.collide {  
+  animation: wobble 0.2s;
+  animation-iteration-count: infinite;
+}
+
+.floor-gold {
+  background-color: gold;
 }
