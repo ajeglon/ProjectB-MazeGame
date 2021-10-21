@@ -15,6 +15,7 @@
 15) Create Menu [WIP]
 16) Add further Levels [Extra]
 17) Seperate files for seperate levels [TODO]
+18) Add game info [TODO]
 
-18) Testing [TODO]
-19) Documentation [TODO]
+19) Testing [TODO]
+20) Documentation [TODO]
