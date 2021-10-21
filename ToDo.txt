@@ -1,0 +1,20 @@
+1) Add Gold to floor tiles [WIP]
+2) Make Gold pick up [WIP]
+3) Add Gold to Score [TODO]
+4) Create Key [DONE]
+5) Add Key Pickup [WIP] - Need help with
+6) Remove key when picked up [TODO]
+7) Add Treasure [DONE]
+8) Alert that treasure can't be got without Key [Done]
+9) Use Key with treasure [WIP] - Need Help with
+10) Add treasure to Score [TODO]
+11) Add Enemies [TODO]
+12) Console log enemies are there [TODO]
+13) Sort out player stats bars [TODO]
+14) Random player spawning [TODO]
+15) Create Menu [TODO]
+16) Add further Levels [TODO]
+17) Seperate files for seperate levels [TODO]
+
+18) Testing [TODO]
+19) Documentation [TODO]

@@ -123,8 +123,25 @@ div.layer div {
 .maze-gold {
   transform-origin: center;
   transform: scale(0.4);
-  background-color: gold;
+  background-color: gold !important;
   border: 1px solid #000;
+  border-radius: 50%;
+}
+
+.key {
+  transform-origin: center;
+  transform: scale(0.4);
+  background-color: silver;
+  border: 1px solid #000;
+  border-radius: 0px !important;
+}
+
+.treasure {
+  transform-origin: center;
+  transform: scale(0.6);
+  background-color: rgb(119, 78, 3);
+  border: 1px solid #000;
+  border-radius: 0px !important;
 }
 
 #success-msg {
@@ -269,6 +286,16 @@ button#down::before {
   animation-iteration-count: infinite;
 }
 
-.floor-gold {
-  background-color: gold;
+#attack-and-defend button{
+  width: 200px;
+  height: 50px;
+}
+
+#health-and-gold button {
+  width: 200px;
+  height: 50px;
+}
+
+#health-and-gold {
+  margin-top: -5px;
 }

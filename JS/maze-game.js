@@ -1,35 +1,50 @@
+// import {levels} from './Levels/easy-level'
+
 let levels = [];
 levels[0] = {
   map: [
-    [1, 1, 0, 0, 1, 0, 1, 0, 1, 0],
-    [1, 1, 0, 0, 0, 0, 1, 0, 1, 0],
+    [1, 1, 1, 0, 1, 0, 0, 0, 1, 0],
     [1, 0, 0, 0, 0, 0, 1, 0, 1, 0],
-    [0, 0, 1, 1, 0, 0, 1, 0, 1, 0],
+    [1, 0, 1, 1, 0, 0, 1, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 1, 1, 1, 0],
     [0, 0, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 0, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
+    [1, 1, 0, 0, 0, 1, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+    [0, 1, 0, 1, 0, 0, 0, 0, 1, 1],
+    [0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
   ],
   player: {
     x: 0,
-    y: 4
+    y: 10,
+    hasKey: false,
+    playerHealth: 100,
   },
   exit: {
-    x: 4,
-    y: 1
+    x: 7,
+    y: 4
   },
   theme: 'Easy',
   levelDimension: 48,
   playerHealth: 100,
-  goldValues: [10, 20, 30, 40, 50]
+  goldValues: [10, 20, 30, 40, 50],
+  treasureValue: [100],
+  treasure: {
+    x: 9,
+    y: 10
+  },
+  key: {
+    x: 3,
+    y: 0
+  }
+
+
 };
 
 function mazeGame(id, level) {
   this.element = document.getElementById(id);
-  this.tileTypes = ['floor', 'wall'];
+  this.tileTypes = ['floor maze-gold', 'wall'];
   this.tileDimension = level.levelDimension;
   this.map = level.map;
   this.theme = level.theme;
@@ -37,6 +52,8 @@ function mazeGame(id, level) {
   this.exit = { ...level.exit };
   this.playerHealth = level.playerHealth;
   this.goldValues = level.goldValues;
+  this.treasure = { ...level.treasure };
+  this.key = { ...level.key }
 }
 
 mazeGame.prototype.populateMap = function () {
@@ -78,19 +95,74 @@ mazeGame.prototype.placeSprite = function (type) {
   return sprite;
 }
 
-mazeGame.prototype.generateGold = function () {
-  // let addGold = document.getElementsByClassName('floor');
+// mazeGame.prototype.createGold = function () {
+//   // element.className = 
+// }
 
-  // addGold.className += '-gold';
+// mazeGame.prototype.addeGold = function () {
+// let mazeGold = document.getElementById('tiles');
+// for (var y = 0; y < this.map.length; ++y) {
+//   for (var x = 0; x < this.map[y].length; ++x) {
+//     let goldCode = this.map[y][x];
+//     let goldType = this.tileTypes[goldCode];
+//     if (goldType === 1) {
+//       mazeGold.className += ' maze-gold'
+//     }
+//     else {
+//       mazeGold.className += ''
+//     }
+//   }
+// let addGold = document.getElementsByClassName('floor');
 
-  // if (addGold = 'floor-gold') {
-  //   console.log('Gold')
-  // } else {
-  //   console.log('No Gold')
-  // }
+// addGold.className += '-gold';
+
+// if (addGold = 'floor-gold') {
+//   console.log('Gold')
+// } else {
+//   console.log('No Gold')
+// }
+// }
+
+// let mazeGold = document.getElementById("maze-gold");
+// for (var y = 0; y < this.map.length; ++y) {
+//   for (var x = 0; x < this.map[y].length; ++x) {
+//     let tileCode = this.map[y][x];
+//     let tileType = this.tileTypes[tileCode];
+//     let gold = this.createSprite(x, y, tileType);
+//     if (tileType = 'floor') {
+//       mazeGold.className += "maze-gold"
+//     } else {
+//       mazeGold.classList += ''
+//     }
 
 
+//   }
 
+mazeGame.prototype.collectGold = function () {
+    let player = document.getElementById('player');
+    let goldPlacement = document.getElementsByClassName('floor maze-game');
+    let goldAmount = this.goldValues;
+    if (this.player.y == goldPlacement.y &&
+      this.player.x == goldPlacement.x) {
+        goldPlacement.className += ' test';
+      }
+
+
+    let playerGetsKey = this.player.hasKey;
+    // let keyPlacement = document.getElementById('key');
+    let keyPlacement = this.key
+    let key = document.getElementById('key')
+    if (this.player.y == keyPlacement.y &&
+      this.player.x == keyPlacement.x) {
+      alert("you picked up the key");
+      playerGetsKey = true;
+      // key.parentNode.removeChild(key);
+      keyPlacement.y = -10;
+      keyPlacement.x = -10;
+    }
+    else {
+      player.className += ''
+    }
 }
 
 
@@ -218,58 +290,127 @@ mazeGame.prototype.checkGoal = function () {
   }
 }
 
-mazeGame.prototype.keyboardListener = function () {
-  document.addEventListener('keydown', event => {
-    this.movePlayerArrows(event);
-    this.movePlayerWASD(event);
-    this.checkGoal();
-  });
-}
+mazeGame.prototype.checkKey = function () {
+  let player = document.getElementById('player');
+  let playerGetsKey = this.player.hasKey;
+  // let keyPlacement = document.getElementById('key');
+  let keyPlacement = this.key
+  let key = document.getElementById('key')
+  if (this.player.y == keyPlacement.y &&
+    this.player.x == keyPlacement.x) {
+    alert("you picked up the key");
+    playerGetsKey = true;
+    // key.parentNode.removeChild(key);
+    keyPlacement.y = -10;
+    keyPlacement.x = -10;
+  }
+  else {
+    player.className += ''
+  }
+    // }
+    // if (player.hasKey === 1) {
+    //   console.log('player has key')
+    // } else if (player.hasKey === 0) {
+    //   console.log('player does not have key')
+    // } else {
+    //   console.log('somethings not working')
+    // }
+  }
 
-mazeGame.prototype.buttonListeners = function (instrux_msg, goal_msg) {
-  let up = document.getElementById('up');
-  let left = document.getElementById('left');
-  let down = document.getElementById('down')
-  let right = document.getElementById('right');
-  let obj = this;
-  up.addEventListener('mousedown', function () {
-    obj.moveUp();
-    obj.checkGoal(instrux_msg, goal_msg);
-  });
-  down.addEventListener('mousedown', function () {
-    obj.moveDown();
-    obj.checkGoal(instrux_msg, goal_msg);
-  });
-  left.addEventListener('mousedown', function () {
-    obj.moveLeft();
-    obj.checkGoal(instrux_msg, goal_msg);
-  });
-  right.addEventListener('mousedown', function () {
-    obj.moveRight();
-    obj.checkGoal(instrux_msg, goal_msg);
-  });
-}
+  mazeGame.prototype.checkTreasure = function () {
+    let player = document.getElementById('player');
+    let doesPlayerHaveKey = this.player.hasKey;
+    let treasurePlacement = this.treasure;
+    let treaure = document.getElementById('treasure');
+    if (this.player.y == treasurePlacement.y &&
+      this.player.x == treasurePlacement.x &&
+      doesPlayerHaveKey == true) {
+      alert('Treasure chest opened')
+    } else if (this.player.y == treasurePlacement.y &&
+      this.player.x == treasurePlacement.x &&
+      doesPlayerHaveKey == false) {
+      alert('Key needed!')
+    } else if (this.player.y == treasurePlacement.y &&
+      this.player.x == treasurePlacement.x &&
+      doesPlayerHaveKey == undefined || doesPlayerHaveKey == null) {
+      alert('Somethings not working')
+    }
+  }
 
-mazeGame.prototype.collide = function () {
-  this.player.element.className += ' collide';
-  let obj = this;
-  window.setTimeout(function () {
-    obj.player.element.className = 'player';
-  }, 200);
-  return 0;
-};
+  mazeGame.prototype.keyboardListener = function () {
+    document.addEventListener('keydown', event => {
+      this.movePlayerArrows(event);
+      this.movePlayerWASD(event);
+      this.checkGoal();
+      this.checkKey();
+      this.checkTreasure();
+      this.collectGold();
+    });
+  }
 
-function init() {
-  let myGame = new mazeGame('maze-game-container-1', levels[0]);
-  myGame.populateMap();
-  myGame.sizeUp();
-  // myGame.placeSprite('maze-gold')
-  myGame.placeSprite('exit');
-  let playerSprite = myGame.placeSprite('player');
-  myGame.player.element = playerSprite;
-  myGame.keyboardListener();
-  myGame.buttonListeners();
-  myGame.generateGold();
-}
-init();
+  mazeGame.prototype.buttonListeners = function (instrux_msg, goal_msg) {
+    let up = document.getElementById('up');
+    let left = document.getElementById('left');
+    let down = document.getElementById('down')
+    let right = document.getElementById('right');
+    let obj = this;
+    up.addEventListener('mousedown', function () {
+      obj.moveUp();
+      obj.checkGoal(instrux_msg, goal_msg);
+      obj.checkKey()
+    });
+    down.addEventListener('mousedown', function () {
+      obj.moveDown();
+      obj.checkGoal(instrux_msg, goal_msg);
+      obj.checkKey()
+    });
+    left.addEventListener('mousedown', function () {
+      obj.moveLeft();
+      obj.checkGoal(instrux_msg, goal_msg);
+      obj.checkKey()
+    });
+    right.addEventListener('mousedown', function () {
+      obj.moveRight();
+      obj.checkGoal(instrux_msg, goal_msg);
+      obj.checkKey()
+    });
+  }
+
+  mazeGame.prototype.collide = function () {
+    this.player.element.className += ' collide';
+    let obj = this;
+    window.setTimeout(function () {
+      obj.player.element.className = 'player';
+    }, 200);
+    return 0;
+
+    // this.player.element.className += ' collide'
+    // let obj = this;
+    // window.setTimeout(function () {
+    //   if (obj.player.element.contains('hasKey')) {
+    //     obj.placeSprite.element.className = 'player hasKey';
+    //   } else if (obj.player.element.className == 'player') {
+    //     obj.player.element.className = 'player';
+    //   }
+    // }, 200)
+    // return 0;
+
+  };
+
+  function init() {
+    let myGame = new mazeGame('maze-game-container-1', levels[0]);
+    myGame.populateMap();
+    myGame.sizeUp();
+    myGame.placeSprite('exit');
+    myGame.placeSprite('treasure');
+    myGame.placeSprite('key');
+    let playerSprite = myGame.placeSprite('player');
+    myGame.player.element = playerSprite;
+    myGame.keyboardListener();
+    myGame.buttonListeners();
+    myGame.collectGold();
+    // console.log(myGame.player.hasKey)
+    // console.log(myGame.player.playerHealth)
+  }
+  init();
 
