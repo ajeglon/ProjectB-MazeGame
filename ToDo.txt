@@ -1,22 +1,14 @@
-1) Add Gold to floor tiles [DONE]
-2) Make Gold pick up [DONE]
-3) Add Gold to Score [WIP] - Need Help with
-4) Create Key [DONE]
-5) Add Key Pickup [DONE]
-6) Remove key when picked up [DONE]
-7) Add Treasure [DONE]
-8) Alert that treasure can't be got without Key [DONE]
-9) Use Key with treasure [DONE]
-10) Add treasure to Score [WIP] - Need Help with
-11) Add Enemies [DONE]
-12) Enemies disapear after being defeated [WIP]
-13) Sort out player stats bars [WIP] - Need Help with
-14) Random player spawning [TODO]
+
+13) Sort out player stats bars [WIP]
+14) Random player spawning [WIP]
 15) Create Menu [WIP]
 16) Add further Levels [Extra]
-17) Seperate files for seperate levels [DONE]
+
 18) Add game info [WIP]
 
 19) Testing [WIP]
 20) Documentation [WIP]
 21) Comment code [WIP]
+22) Add weapons and armor [WIP]
+23) Increase stats on pickup [WIP]
+24) Restarting game [WIP]

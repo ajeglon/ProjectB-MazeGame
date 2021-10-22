@@ -1,6 +1,4 @@
 import { levels } from './easyLevel.js'
-
-
 function mazeGame(id, level) {
   this.element = document.getElementById(id);
   this.tileTypes = ['floor maze-gold', 'wall', 'corridor'];
@@ -50,6 +48,7 @@ mazeGame.prototype.populateMap = function () {
     }
   }
 }
+
 // Create one tile
 mazeGame.prototype.createSprite = function (x, y, type) {
   let element = document.createElement('div');
@@ -195,9 +194,14 @@ mazeGame.prototype.updateHoriz = function (sprite) {
 mazeGame.prototype.checkGoal = function () {
   let mapAndControls = document.getElementById('maze-map-and-controls');
   if (this.player.y == this.exit.y &&
-    this.player.x == this.exit.x) {
+    this.player.x == this.exit.x && 
+    this.player.currentGold == 270) {
     mapAndControls.className = 'success';
   }
+  else if (this.player.y == this.exit.y &&
+    this.player.x == this.exit.x) {
+      alert('Retrieve all the gold to pass')
+    }
   else {
     mapAndControls.className = '';
   }
@@ -215,21 +219,6 @@ mazeGame.prototype.healthAndGoldButtons = function () {
   var playerGold = this.player.currentGold;
   var playerHealth = this.playerHealth;
   buttonCreator.innerHTML = '<button id="gold-counter"> Gold: ' + playerGold + '</button>' + '<button id="health-counter"> Health: ' + playerHealth + '</button>';
-}
-
-mazeGame.prototype.playerTakesDamage = function () { //needs work
-  var buttonCreator = document.getElementById('health-and-gold');
-  var playerHealthStat = document.getElementById('health-counter');
-  buttonCreator.innerHTML = '<button id="gold-counter"> Gold: ' + playerGold + '</button>' + '<button id="health-counter"> Health: ' + playerHealth + '</button>';
-  if (this.playerHealth >= 0) {
-    alert('You have taken too much damage and perished');
-    this.restart();
-  }
-}
-
-mazeGame.prototype.restart = function () {
-  alert('Click OK to restart game');
-  init();
 }
 
 mazeGame.prototype.checkKey = function () {
@@ -258,7 +247,7 @@ mazeGame.prototype.checkEnemy = function () {
   let goblin3Placement = this.goblin3;
   let goblin3Damage = 20;
   let orc1Placement = this.orc1;
-  let orc1Damage = 30;
+  let orc1Damage = 300;
   let orc2Placement = this.orc2;
   let orc2Damage = 40;
   let playerHealth = this.player.playerHealth;
@@ -267,9 +256,8 @@ mazeGame.prototype.checkEnemy = function () {
     goblin1.parentNode.removeChild(goblin1);
     goblin1Placement.y = -10;
     goblin1Placement.x = -10;
-    playerHealth -= goblin1Damage;
+    this.player.playerHealth = this.player.playerHealth - goblin1Damage;
     // console.log(playerHealth)
-    this.playerTakesDamage();
   }
   if
     (this.player.y == goblin2Placement.y &&
@@ -277,7 +265,7 @@ mazeGame.prototype.checkEnemy = function () {
     goblin2.parentNode.removeChild(goblin2);
     goblin2Placement.y = -10;
     goblin2Placement.x = -10;
-    playerHealth -= goblin2Damage;
+    this.player.playerHealth = this.player.playerHealth - goblin2Damage;
     // console.log(playerHealth)
   }
   if (this.player.y == goblin3Placement.y &&
@@ -285,7 +273,7 @@ mazeGame.prototype.checkEnemy = function () {
     goblin3.parentNode.removeChild(goblin3);
     goblin3Placement.y = -10;
     goblin3Placement.x = -10;
-    playerHealth -= goblin3Damage;
+    this.player.playerHealth = this.player.playerHealth - goblin3Damage;
     // console.log(playerHealth)
   }
   if (this.player.y == orc1Placement.y &&
@@ -293,7 +281,7 @@ mazeGame.prototype.checkEnemy = function () {
     orc1.parentNode.removeChild(orc1);
     orc1Placement.y = -10;
     orc1Placement.x = -10;
-    playerHealth -= orc1Damage;
+    this.player.playerHealth = this.player.playerHealth - orc1Damage;
     // console.log(playerHealth)
   }
   if (this.player.y == orc2Placement.y &&
@@ -301,8 +289,7 @@ mazeGame.prototype.checkEnemy = function () {
     orc2.parentNode.removeChild(orc2);
     orc2Placement.y = -10;
     orc2Placement.x = -10;
-    playerHealth -= orc2Damage;
-    // console.log(playerHealth)
+    this.player.playerHealth = this.player.playerHealth - orc2Damage;
   }
   // console.log(playerHealth)
 
@@ -313,7 +300,7 @@ mazeGame.prototype.checkGold = function () {
   let gold1Value = 20;
   let gold2Value = 20;
   let gold3Value = 30;
-  let gold4Value = 40;
+  let gold4Value = 30;
   let gold5Value = 50;
   let gold1Placement = this.gold1;
   let gold2Placement = this.gold2;
@@ -326,61 +313,75 @@ mazeGame.prototype.checkGold = function () {
   let gold3 = document.getElementById('gold3');
   let gold4 = document.getElementById('gold4');
   let gold5 = document.getElementById('gold5');
-  // console.log(playerGold)
   if (this.player.y == gold1Placement.y &&
     this.player.x == gold1Placement.x) {
     gold1.parentNode.removeChild(gold1);
     gold1Placement.y = -10;
     gold1Placement.x = -10;
-    playerGold += gold1Value;
-    // console.log(playerGold)
-    // console.log(this.playerGold)
-    // console.log(this.player.playerGold)
-    // this.updateGold();
-    // return
+    this.player.currentGold = this.player.currentGold + gold1Value;
+    console.log('you picked up gold 1');
   }
   if (this.player.y == gold2Placement.y &&
     this.player.x == gold2Placement.x) {
     gold2.parentNode.removeChild(gold2);
     gold2Placement.y = -10;
     gold2Placement.x = -10;
-    playerGold += gold2Value;
+    this.player.currentGold = this.player.currentGold + gold2Value;
+    console.log('you picked up gold 2');
   }
   if (this.player.y == gold3Placement.y &&
     this.player.x == gold3Placement.x) {
     gold3.parentNode.removeChild(gold3);
     gold3Placement.y = -10;
     gold3Placement.x = -10;
-    playerGold += gold3Value;
+    this.player.currentGold = this.player.currentGold + gold3Value;
+    console.log('you picked up gold 3');
   }
   if (this.player.y == gold4Placement.y &&
     this.player.x == gold4Placement.x) {
     gold4.parentNode.removeChild(gold4);
     gold4Placement.y = -10;
     gold4Placement.x = -10;
-    playerGold += gold4Value;
+    this.player.currentGold = this.player.currentGold + gold4Value;
+    console.log('you picked up gold 4');
   }
   if (this.player.y == gold5Placement.y &&
     this.player.x == gold5Placement.x) {
     gold5.parentNode.removeChild(gold5);
     gold5Placement.y = -10;
     gold5Placement.x = -10;
-    playerGold += gold5Value;
+    this.player.currentGold = this.player.currentGold + gold5Value;
+    console.log('you picked up gold 5');
   }
 }
 
 mazeGame.prototype.updateGold = function () {
   var playerGold = this.currentGold;
   var goldCounter = document.getElementById('gold-counter');
-  goldCounter.innerHTML = 'Gold: ' + toString.playerGold;
-
+  goldCounter.innerHTML = 'Gold: ' + this.player.currentGold;
 }
+
+mazeGame.prototype.updateHealth = function () {
+  var playerGold = this.currentGold;
+  var healthCounter = document.getElementById('health-counter');
+  healthCounter.innerHTML = 'Health: ' + this.player.playerHealth;
+  // if (this.player.playerHealth <= 0) {
+  //   alert('You have taken too much damage and perished');
+  //   this.restart();
+  // }
+}
+
+// mazeGame.prototype.restart = function () { //needs work
+//   alert('Click OK to restart game');
+//   init();
+// }
 
 mazeGame.prototype.checkTreasure = function () { //Needs Work
   let player = document.getElementById('player');
   let doesPlayerHaveKey = this.player.hasKey;
   let treasurePlacement = this.treasure;
   let treaure = document.getElementById('treasure');
+  let treasureValue = 120;
   let playerGold = this.player.currentGold;
   console.log(this.player.currentGold)
   console.log(playerGold)
@@ -395,8 +396,7 @@ mazeGame.prototype.checkTreasure = function () { //Needs Work
     treaure.parentNode.removeChild(treaure);
     treasurePlacement.y = -10;
     treasurePlacement.x = -10;
-    playerGold += 100;
-    this.updateGold();
+    this.player.currentGold = this.player.currentGold + treasureValue;
     console.log(this.player.currentGold)
     console.log(playerGold)
   } else if (this.player.y == treasurePlacement.y &&
@@ -408,7 +408,7 @@ mazeGame.prototype.checkTreasure = function () { //Needs Work
     doesPlayerHaveKey == undefined || doesPlayerHaveKey == null) {
     alert('Somethings not working')
   }
-  
+
 }
 
 mazeGame.prototype.keyboardListener = function () {
@@ -420,7 +420,11 @@ mazeGame.prototype.keyboardListener = function () {
     this.checkTreasure();
     this.checkGold();
     this.checkEnemy();
-    // this.collectGold();
+    this.updateGold();
+    this.updateHealth();
+    // this.healthPotion();
+    // this.updateAttack();
+    // this.updateDefence();
   });
 }
 
@@ -434,21 +438,41 @@ mazeGame.prototype.buttonListeners = function (instrux_msg, goal_msg) {
     obj.moveUp();
     obj.checkGoal(instrux_msg, goal_msg);
     obj.checkKey()
+    obj.checkTreasure();
+    obj.checkGold();
+    obj.checkEnemy();
+    obj.updateGold();
+    obj.updateHealth();
   });
   down.addEventListener('mousedown', function () {
     obj.moveDown();
     obj.checkGoal(instrux_msg, goal_msg);
     obj.checkKey()
+    obj.checkTreasure();
+    obj.checkGold();
+    obj.checkEnemy();
+    obj.updateGold();
+    obj.updateHealth();
   });
   left.addEventListener('mousedown', function () {
     obj.moveLeft();
     obj.checkGoal(instrux_msg, goal_msg);
     obj.checkKey()
+    obj.checkTreasure();
+    obj.checkGold();
+    obj.checkEnemy();
+    obj.updateGold();
+    obj.updateHealth();
   });
   right.addEventListener('mousedown', function () {
     obj.moveRight();
     obj.checkGoal(instrux_msg, goal_msg);
     obj.checkKey()
+    obj.checkTreasure();
+    obj.checkGold();
+    obj.checkEnemy();
+    obj.updateGold();
+    obj.updateHealth();
   });
 }
 
@@ -490,10 +514,6 @@ function init() {
   myGame.buttonListeners();
   myGame.healthAndGoldButtons();
   myGame.attackAndDefenceButtons();
-  // myGame.collectGold();
-  // myGame.createGold();
-  // console.log(myGame.player.playerHealth)
-  console.log(myGame.player.currentGold)
 }
 
 
