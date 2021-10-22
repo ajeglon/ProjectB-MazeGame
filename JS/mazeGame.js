@@ -2,11 +2,11 @@ import { levels } from './levels.js'
 function mazeGame(id, level) {
   this.element = document.getElementById(id);
   this.tileTypes = ['floor maze-gold', 'wall', 'corridor'];
-  //inherit the level's properties
+  // Inherit the level's properties
   this.tileDimension = level.levelDimension;
   this.map = level.map;
   this.theme = level.theme;
-  // make a copy of the level's player.
+  // Make a copy of the level's player.
   this.player = { ...level.player };
   this.exit = { ...level.exit };
   this.playerHealth = level.playerHealth;
@@ -33,8 +33,11 @@ function mazeGame(id, level) {
   this.playerAttack = level.playerAttack;
   this.playerDefence = level.playerDefence;
   this.level_idx = 0;
-}
+  this.healthPotion = { ...level.healthPotion };
+};
 
+ // Applies the level theme as a class to the game element. 
+ // Populates the map by adding tiles and sprites to their respective layers. 
 mazeGame.prototype.populateMap = function () {
   this.element.className = 'maze-game-container ' + this.theme;
   let tiles = document.getElementById('tiles');
@@ -48,42 +51,45 @@ mazeGame.prototype.populateMap = function () {
       tiles.appendChild(tile);
     }
   }
-}
+};
 
-// Create one tile
+// Create a tile or sprite <div> element.
 mazeGame.prototype.createSprite = function (x, y, type) {
   let element = document.createElement('div');
   element.className = type;
-  // set width and height of tile
+  // Set width and height of tile
   element.style.width = element.style.height = this.tileDimension + 'px';
-  // set left positions
+  // Set left positions
   element.style.left = x * this.tileDimension + 'px';
-  // set top position
+  // Set top position
   element.style.top = y * this.tileDimension + 'px';
   return element;
-}
+};
 
+// Sizes up the map based on array dimensions.
 mazeGame.prototype.sizeUp = function () {
-  // inner container so that text can be below it
+  // Inner container so that text can be below it
   let map = this.element.querySelector('.maze-map');
-  // inner container, height. Need this.map
+  // Inner container, height. Need this.map
   map.style.height = this.map.length * this.tileDimension + 'px';
   map.style.width = this.map[0].length * this.tileDimension + 'px';
 };
 
+// Places sprite based on their x and y coordinates
 mazeGame.prototype.placeSprite = function (type) {
-  let x = this[type].x
-  let y = this[type].y
+  let x = this[type].x;
+  let y = this[type].y;
   let sprite = this.createSprite(x, y, type);
   sprite.id = type;
-  // set the border radius of the sprite
+  // Set the border radius of the sprite
   sprite.style.borderRadius = this.tileDimension + 'px';
-  // grab the layer
+  // Grab the layer
   let layer = this.element.querySelector('#sprites');
   layer.appendChild(sprite);
   return sprite;
-}
+};
 
+// uses arrow key keycodes, if one between 37 and 40 are entered, the relevent function is called
 mazeGame.prototype.movePlayerArrows = function (event) {
   event.preventDefault();
   if (event.keyCode < 37 || event.keyCode > 40) {
@@ -105,6 +111,7 @@ mazeGame.prototype.movePlayerArrows = function (event) {
   }
 }
 
+// same as above but for WASD keys
 mazeGame.prototype.movePlayerWASD = function (event) {
   event.preventDefault();
   if (event.keyCode < 65 || event.keyCode > 87) {
@@ -127,17 +134,23 @@ mazeGame.prototype.movePlayerWASD = function (event) {
 }
 
 // Movement helpers
+//Moves the player sprite left
 mazeGame.prototype.moveLeft = function (sprite) {
+  // if at the boundary, return
   if (this.player.x == 0) {
     this.collide();
     return;
   }
+  // itentify next tile
   let nextTile = this.map[this.player.y][this.player.x - 1];
+  // if next tile is a wall, add collide effect and return
   if (nextTile == 1) {
     this.collide();
     return;
   }
+  // change coordinates of player object
   this.player.x -= 1;
+  // update location of DOM element
   this.updateHoriz(sprite);
 }
 
@@ -183,15 +196,17 @@ mazeGame.prototype.moveDown = function () {
   this.updateVert();
 }
 
-//DOM update helpers
+//Updates vertical position of player sprite based on object's y coordinates.
 mazeGame.prototype.updateVert = function () {
   this.player.element.style.top = this.player.y * this.tileDimension + 'px';
 };
 
+// same as above but for horizontal
 mazeGame.prototype.updateHoriz = function (sprite) {
   this.player.element.style.left = this.player.x * this.tileDimension + 'px';
 };
 
+// Check on whether goal has been reached.
 mazeGame.prototype.checkGoal = function () {
   let mapAndControls = document.getElementById('maze-map-and-controls');
   if (this.player.y == this.exit.y &&
@@ -208,6 +223,7 @@ mazeGame.prototype.checkGoal = function () {
   }
 }
 
+//creates buttons to displat attack and defence stats
 mazeGame.prototype.attackAndDefenceButtons = function () {
   var buttonCreator = document.getElementById('attack-and-defend');
   var playerAttack = this.player.playerAttack;
@@ -215,6 +231,7 @@ mazeGame.prototype.attackAndDefenceButtons = function () {
   buttonCreator.innerHTML = '<button id="player-attack"> Attack: ' + playerAttack + '</button>' + '<button id="player-defence"> Defence: ' + playerDefence + '</button>'
 }
 
+//creates buttons to displat health and gold stats
 mazeGame.prototype.healthAndGoldButtons = function () {
   var buttonCreator = document.getElementById('health-and-gold');
   var playerGold = this.player.currentGold;
@@ -222,6 +239,7 @@ mazeGame.prototype.healthAndGoldButtons = function () {
   buttonCreator.innerHTML = '<button id="gold-counter"> Gold: ' + playerGold + '</button>' + '<button id="health-counter"> Health: ' + playerHealth + '</button>';
 }
 
+// checks if player has the key and to give them the key once finding it
 mazeGame.prototype.checkKey = function () {
   var player = document.getElementById('player');
   var keyPlacement = this.key;
@@ -239,6 +257,7 @@ mazeGame.prototype.checkKey = function () {
   }
 };
 
+// checks if current tile is an enemy, if so player loses health based on enemy damage value
 mazeGame.prototype.checkEnemy = function () {
   let player = document.getElementById('player');
   let goblin1Placement = this.goblin1;
@@ -258,7 +277,6 @@ mazeGame.prototype.checkEnemy = function () {
     goblin1Placement.y = -10;
     goblin1Placement.x = -10;
     this.player.playerHealth = this.player.playerHealth - goblin1Damage;
-    // console.log(playerHealth)
   }
   if
     (this.player.y == goblin2Placement.y &&
@@ -267,7 +285,6 @@ mazeGame.prototype.checkEnemy = function () {
     goblin2Placement.y = -10;
     goblin2Placement.x = -10;
     this.player.playerHealth = this.player.playerHealth - goblin2Damage;
-    // console.log(playerHealth)
   }
   if (this.player.y == goblin3Placement.y &&
     this.player.x == goblin3Placement.x) {
@@ -275,7 +292,6 @@ mazeGame.prototype.checkEnemy = function () {
     goblin3Placement.y = -10;
     goblin3Placement.x = -10;
     this.player.playerHealth = this.player.playerHealth - goblin3Damage;
-    // console.log(playerHealth)
   }
   if (this.player.y == orc1Placement.y &&
     this.player.x == orc1Placement.x) {
@@ -283,7 +299,6 @@ mazeGame.prototype.checkEnemy = function () {
     orc1Placement.y = -10;
     orc1Placement.x = -10;
     this.player.playerHealth = this.player.playerHealth - orc1Damage;
-    // console.log(playerHealth)
   }
   if (this.player.y == orc2Placement.y &&
     this.player.x == orc2Placement.x) {
@@ -292,10 +307,9 @@ mazeGame.prototype.checkEnemy = function () {
     orc2Placement.x = -10;
     this.player.playerHealth = this.player.playerHealth - orc2Damage;
   }
-  // console.log(playerHealth)
-
 }
 
+// checks if current tile is gold if so player gains score according to gold value
 mazeGame.prototype.checkGold = function () {
   let player = document.getElementById('player');
   let gold1Value = 20;
@@ -356,14 +370,30 @@ mazeGame.prototype.checkGold = function () {
   }
 }
 
+//needs work
+// mazeGame.prototype.healthPotion = function () { 
+//   let healthPotionHeal = 50;
+//   let healthPotionPlacement = this.healthPotion;
+//   let healthPotion = document.getElementById('healthPotion');
+//   if (this.player.y == healthPotionPlacement.y &&
+//     this.player.x == healthPotionPlacement.x) {
+//     healthPotion.parentNode.removeChild(healthPotion);
+//     healthPotionPlacement.y = -10;
+//     healthPotionPlacement.x = -10;
+//     this.player.playerHealth = this.player.playerHealth + healthPotionHeal;
+//     console.log('you picked up a Health Potion');
+//   }
+// }
+
+//updates the players score and displays on gold button
 mazeGame.prototype.updateGold = function () {
   var playerGold = this.currentGold;
   var goldCounter = document.getElementById('gold-counter');
   goldCounter.innerHTML = 'Gold: ' + this.player.currentGold;
 }
 
+//updates the players health and displays on health button
 mazeGame.prototype.updateHealth = function () {
-  var playerGold = this.currentGold;
   var healthCounter = document.getElementById('health-counter');
   healthCounter.innerHTML = 'Health: ' + this.player.playerHealth;
   if (this.player.playerHealth <= 0) {
@@ -372,11 +402,12 @@ mazeGame.prototype.updateHealth = function () {
   }
 }
 
-mazeGame.prototype.restart = function () { //needs work
+//refreshes the page to restart
+mazeGame.prototype.restart = function () {
   location.reload();
 }
 
-mazeGame.prototype.checkTreasure = function () { //Needs Work
+mazeGame.prototype.checkTreasure = function () {
   let player = document.getElementById('player');
   let doesPlayerHaveKey = this.player.hasKey;
   let treasurePlacement = this.treasure;
@@ -411,6 +442,7 @@ mazeGame.prototype.checkTreasure = function () { //Needs Work
 
 }
 
+// Responds to a keydown event by moving the player and checking the goal.
 mazeGame.prototype.keyboardListener = function () {
   document.addEventListener('keydown', event => {
     this.movePlayerArrows(event);
@@ -428,6 +460,7 @@ mazeGame.prototype.keyboardListener = function () {
   });
 }
 
+//Adds mouse down listeners to button
 mazeGame.prototype.buttonListeners = function (instrux_msg, goal_msg) {
   let up = document.getElementById('up');
   let left = document.getElementById('left');
@@ -443,6 +476,7 @@ mazeGame.prototype.buttonListeners = function (instrux_msg, goal_msg) {
     obj.checkEnemy();
     obj.updateGold();
     obj.updateHealth();
+    // obj.healthPotion();
   });
   down.addEventListener('mousedown', function () {
     obj.moveDown();
@@ -453,6 +487,7 @@ mazeGame.prototype.buttonListeners = function (instrux_msg, goal_msg) {
     obj.checkEnemy();
     obj.updateGold();
     obj.updateHealth();
+    // obj.healthPotion();
   });
   left.addEventListener('mousedown', function () {
     obj.moveLeft();
@@ -463,6 +498,7 @@ mazeGame.prototype.buttonListeners = function (instrux_msg, goal_msg) {
     obj.checkEnemy();
     obj.updateGold();
     obj.updateHealth();
+    // obj.healthPotion();
   });
   right.addEventListener('mousedown', function () {
     obj.moveRight();
@@ -473,9 +509,11 @@ mazeGame.prototype.buttonListeners = function (instrux_msg, goal_msg) {
     obj.checkEnemy();
     obj.updateGold();
     obj.updateHealth();
+    // obj.healthPotion();
   });
 }
 
+//Triggers a collide animation on the player sprite.
 mazeGame.prototype.collide = function () { //needs work
   this.player.element.className += ' collide';
   let obj = this;
@@ -485,15 +523,19 @@ mazeGame.prototype.collide = function () { //needs work
   return 0;
 };
 
-// mazeGame.prototype.runMenu = function () { //Needs Work
+//Needs Work
+// mazeGame.prototype.runMenu = function () { 
 //   var elem = document.getElementById('menu');
 //   return elem.parentNode.removeChild(elem);
 //   init();
 // }
 
+//If goal has been reached,
 mazeGame.prototype.addMazeListener = function () {
+  // grab the map
   let map = this.element.querySelector('.maze-map');
   let obj = this;
+  // if game board is clicked or tapped, see it should change levels
   map.addEventListener('mousedown', function (e) {
     if (obj.player.y != obj.exit.y ||
       obj.player.x != obj.exit.x) {
@@ -510,7 +552,7 @@ mazeGame.prototype.addMazeListener = function () {
   });
 }
 
-mazeGame.prototype.changeLevel = function () {
+mazeGame.prototype.changeLevel = function () { //Needs work
 
   this.level_idx++;
 
@@ -550,6 +592,7 @@ function init() {
   myGame.placeSprite('gold3');
   myGame.placeSprite('gold4');
   myGame.placeSprite('gold5');
+  myGame.placeSprite('healthPotion')
   let playerSprite = myGame.placeSprite('player');
   myGame.player.element = playerSprite;
   myGame.keyboardListener();

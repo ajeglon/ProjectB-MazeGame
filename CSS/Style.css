@@ -1,19 +1,24 @@
+/* General Styling */
 body {
   font-family: Calibri;
   transition: 0.2s ease;
   text-align: center;
   background-color: rgb(78, 140, 255);
 }
+/* style for main head */
 #main-head {
   background-color: rgb(24, 24, 24);
 }
+/* changing font of heading */
 .heading {
   font-family: 'IM Fell English SC', serif;
   font-weight: bold;
 }
+/* background for game heading */
 #game-heading {
   background-color: rgb(94, 94, 94);
 }
+/* navbar stylings */
 ul {
   list-style-type: none;
   margin: 0;
@@ -39,14 +44,17 @@ li a:hover {
 .text {
   color: rgb(236, 235, 235);
 }
+/* seperating home link to others on navbar */
 #home {
   float: left;
   border-right: 1px solid rgb(236, 235, 235);
 }
+/* changes background colour on success */
 #maze-map-and-controls.success{
   background-color: #b7f0b7;
   transition: 0.2s ease;
 }
+/* setting area for the game */
 .maze-game-container {
   margin: 0px auto;
   font-family: 'Tangerine', cursive;
@@ -59,6 +67,7 @@ li a:hover {
   border-top: 5px solid rgb(207, 207, 207);
   border-left: 5px solid rgb(207, 207, 207);
 }
+
 #maze-map-and-controls {
   display: flex;
   justify-content: center;
@@ -77,6 +86,8 @@ div.layer,
 div.layer div {
   position: absolute;
 }
+
+/* styles for tiles on easy map */
 .Easy .floor {
   background-color: rgb(116, 116, 116);
   border: 2px solid rgb(88, 88, 88);
@@ -89,11 +100,13 @@ div.layer div {
   background-color: rgb(90, 90, 90);
   border: 2px solid rgb(114, 65, 8);
 }
+
 .player, 
 .exit {
   transform-origin: center;
   transform:scale(0.85);
 }
+/* sprite setup */
 .player {
   transition: left 0.2s linear, top 0.2s linear;
   transform: scale(1.1);
@@ -143,10 +156,12 @@ div.layer div {
   -webkit-text-stroke: 0.2px black;
   width: calc(100% - 8px);
 }
+/* makes success message visable */
 #maze-map-and-controls.success #success-msg{
   opacity: 1;
   transition: opacity 0.2 ease;
 }
+/* player console */
 .player-console{
   background-color: #98720b;
   border-top: 5px solid #c9970e;
@@ -155,6 +170,7 @@ div.layer div {
   border-right: 5px solid #5c4505;
   min-height: 125px;
 }
+/* sets stat buttons to the right */
 #stats {
   float: right;
 }
@@ -170,6 +186,8 @@ div.layer div {
   border-top: 5px solid rgb(207, 207, 207);
   border-left: 5px solid rgb(207, 207, 207);
 }
+
+/* sets movement buttons to the left of the console */
 .movement-buttons {
   float: left;
   margin-left: 10px;
@@ -243,6 +261,8 @@ button#down::before {
   left: 9px;
   top: 12px;
 }
+
+/* import wobble animation */
 @keyframes wobble {
   0% { transform: scale(0.85) translate(1px, 1px); }
   10% { transform: scale(0.85) translate(-1px, -2px); }
@@ -256,6 +276,7 @@ button#down::before {
   90% { transform: scale(0.85) translate(1px, 2px); }
   100% { transform: scale(0.85) translate(1px, -2px);; }
 }
+
 .player.collide {  
   animation: wobble 0.2s;
   animation-iteration-count: infinite;
@@ -304,6 +325,15 @@ button#down::before {
   transform-origin: center;
   transform: scale(0.9);
   background-image: url(/images/gold.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.healthPotion {
+  transform-origin: center;
+  transform: scale(0.9);
+  background-image: url(/images/potion.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

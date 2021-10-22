@@ -1,7 +1,8 @@
-
+//Build an array of levels.
 let levels = [];
 // First Level
 levels[0] = {
+  //0 = floor, 1 = wall, 2 = corridor
   map: [
     [1, 1, 1, 2, 1, 2, 2, 2, 1, 2],
     [1, 2, 2, 2, 0, 0, 1, 2, 1, 2],
@@ -16,8 +17,11 @@ levels[0] = {
     [0, 0, 1, 2, 2, 2, 2, 2, 1, 2],
   ],
   player: {
+    //x = horizontal position
     x: 0,
+    //y = vertical
     y: 10,
+    //starting stats for player
     hasKey: false,
     playerHealth: 100,
     currentGold: 0,
@@ -28,20 +32,21 @@ levels[0] = {
     x: 7,
     y: 4
   },
-  // hasKey: false,
+  //theme used to style this specific map
   theme: 'Easy',
   levelDimension: 48,
   playerHealth: 100,
-  goldValues: [10, 20, 30, 40, 50],
-  treasureValue: [100],
+  //treasure position
   treasure: {
     x: 9,
     y: 10
   },
+  //key position
   key: {
     x: 3,
     y: 0
   },
+  //enemy positions
   goblin1: {
     x: 7,
     y: 6,
@@ -62,6 +67,7 @@ levels[0] = {
     x: 8,
     y: 2,
   },
+  //gold positions
   gold1: {
     x: 2,
     y: 4
@@ -81,7 +87,13 @@ levels[0] = {
   gold5: {
     x: 9,
     y: 6
+  },
+  //health potion position
+  healthPotion: {
+    x: 5,
+    y: 6,
   }
+
 };
   // second level
 levels[1] = {
@@ -103,12 +115,12 @@ levels[1] = {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ],
   theme: 'Medium',
-  levelDim: 32,
+  levelDimension: 32,
   player: {
     x: 2,
     y: 4
   },
-  goal: {
+  exit: {
     x: 4,
     y: 4
   }
@@ -139,12 +151,12 @@ levels[2] = {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ],
   theme: 'Hard',
-  levelDim: 24,
+  levelDimension: 24,
   player: {
     x: 2,
     y: 4
   },
-  goal: {
+  exit: {
     x: 6,
     y: 4
   }
@@ -179,12 +191,12 @@ levels[3] = {
     [1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ],
   theme: 'Ultimate',
-  levelDim: 16,
+  levelDimension: 16,
   player: {
     x: 2,
     y: 4
   },
-  goal: {
+  exit: {
     x: 6,
     y: 4
   }
