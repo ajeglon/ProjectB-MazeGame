@@ -1,0 +1,27 @@
+{
+  "name": "MazeGame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "woof.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajeglon/ProjectB-MazeGame.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajeglon/ProjectB-MazeGame/issues"
+  },
+  "homepage": "https://github.com/ajeglon/ProjectB-MazeGame#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}

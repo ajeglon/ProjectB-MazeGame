@@ -64,7 +64,6 @@ li a:hover {
   font-size: 30px;
   background-color: white;
   padding-top: 20px;
-  padding-bottom: 20px;
   max-width: 550px;
   border-bottom: 5px solid rgb(78, 78, 78);
   border-right: 5px solid rgb(78, 78, 78);
@@ -101,6 +100,11 @@ div.layer div {
 .Easy .wall {
   background-color: rgb(146, 93, 31);
   border: 2px solid rgb(180, 114, 39);
+}
+
+.Easy .corridor {
+  background-color: rgb(90, 90, 90);
+  border: 2px solid rgb(114, 65, 8);
 }
 
 .player, 
@@ -217,6 +221,7 @@ div.layer div {
 
 #instruction-text {
   background-color: #000;
+  height: 600px;
 }
 
 .movement-buttons #horiz {
@@ -327,4 +332,11 @@ button#down::before {
   transform: scale(0.9);
   background-color: green;
   border: 1px solid brown;
+}
+
+.gold1, .gold2, .gold3, .gold4, .gold5 {
+  transform-origin: center;
+  transform: scale(0.2);
+  background-color: gold;
+  border: 1px solid blue;
 }

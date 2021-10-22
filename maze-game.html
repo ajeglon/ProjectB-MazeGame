@@ -16,70 +16,80 @@
 </head>
 
 <body>
-
-  <body>
-    <Header id="main-head" class="heading border text">
-      <h1 id="site-heading">Olde Worlde Phunne</h1>
-      <ul class="navbar text">
-        <li id="home"><a href="">Home</a></li>
-        <li><a href="">Socials</a></li>
-        <li><a href="">About</a></li>
-        <li><a href="">News</a></li>
-      </ul>
-    </Header>
-    <h2 id="game-heading" class="heading border text">Maze Game</h2>
-    <!-- game container -->
-    <div id="maze-game-container-1" class="maze-game-container">
-      <!-- <button id="menu" onclick="runMenu()"> Click Here To Start! Needs Work -->
-        <div id="maze-map-and-controls">
-          <!-- start game map -->
-          <div id="maze-map-1" class="maze-map">
-            <div id="tiles" class="layer"></div>
-            <div id="sprites" class="layer"></div>
-            <div id="success-msg">
-              You made it to the exit!
-              <br>
-              Would you like to leave the dungeon? (Click on the maze)
-              <br>
-              Or keep exploring for more loot? (Continue Moving)
-            </div>
-          </div>
+  <Header id="main-head" class="heading border text">
+    <h1 id="site-heading">Olde Worlde Phunne</h1>
+    <ul class="navbar text">
+      <li id="home"><a href="">Home</a></li>
+      <li><a href="">Socials</a></li>
+      <li><a href="">About</a></li>
+      <li><a href="">News</a></li>
+    </ul>
+  </Header>
+  <h2 id="game-heading" class="heading border text">Maze Game</h2>
+  <!-- game container -->
+  <div id="maze-game-container-1" class="maze-game-container">
+    <!-- <button id="menu" onclick="runMenu()"> Click Here To Start! </button> -->
+    <div id="maze-map-and-controls">
+      <!-- start game map -->
+      <div id="maze-map-1" class="maze-map">
+        <div id="tiles" class="layer"></div>
+        <div id="sprites" class="layer"></div>
+        <div id="success-msg">
+          You made it to the exit!
+          <br>
+          Would you like to leave the dungeon? (Click on the maze)
+          <br>
+          Or keep exploring for more loot? (Continue Moving)
         </div>
-      <!-- </button> -->
-      <!-- end game map -->
-      <!-- Player console-->
-      <div class="player-console">
-        <div class="movement-buttons">
-          <button id="up"></button>
-          <div id="horiz">
-            <button id="left"></button>
-            <button id="right"></button>
-          </div>
-          <button id="down"></button>
-        </div>
-        <div id="stats">
-          <div id="attack-and-defend">
-            <button>Attack: </button>
-            <button>Defend: </button>
-          </div>
-          <div id="health-and-gold">
-            <br>
-            <button>Health: </button>
-            <button>Gold: </button>
-          </div>
-        </div>
-      </div>
-      <div id="instruction-text" class="text">
-        <h3>Instructions:</h3>
-        <p>Use cursor keys, WASD or buttons to move.</p>
       </div>
     </div>
-    <footer class="footer border text">
-      Copyright Olde Worlde Phunne
-    </footer>
-    <!-- custom js -->
-    <script type="module" src="./JS/maze-game.js"></script>
-  </body>
+    <!-- end game map -->
+    <!-- Player console-->
+    <div class="player-console">
+      <div class="movement-buttons">
+        <button id="up"></button>
+        <div id="horiz">
+          <button id="left"></button>
+          <button id="right"></button>
+        </div>
+        <button id="down"></button>
+      </div>
+      <div id="stats">
+        <div id="attack-and-defend">
+          <button>Attack: </button>
+          <button>Defend: </button>
+        </div>
+        <br>
+        <div id="health-and-gold">
+          <button>Health: </button>
+          <button id="gold-counter">Gold: </button>
+        </div>
+      </div>
+    </div>
+    <!--End player console-->
+    <!--Game information-->
+    <div id="instruction-text" class="text">
+      <h3>Instructions:</h3>
+      <p class="instructions">You enter a mysterious dungeon tasked with collecting as much gold as possible, will you be able to survive to the exit with in the gold at hand?</p>
+      <p class="instructions">Use cursor keys, WASD or buttons to move.</p>
+      <p class="instructions">Key:</p>
+      <div class="player"style="height: 48px; width: 48px; float:right; border-radius: 48px;"></div>
+      <p class="instructions">White circle - player - </p>
+      <div class="exit"style="height: 48px; width: 48px; float:right; border-radius: 48px;"></div>
+      <p class="instructions">Black circle - exit</p>
+      <div class="key"style="height: 48px; width: 48px; float:right; border-radius: 48px;"></div>
+      <p class="instructions">Silver square - key</p>
+      <div class="treasure"style="height: 48px; width: 48px; float:right; border-radius: 48px;"></div>
+      <p class="instructions">Brown square - Treasure</p>
+      <div class="goblin1"style="height: 48px; width: 48px; float:right; border-radius: 48px;"></div>
+      <p class="instructions">Green circles - Enemies</p>
+    </div>
+  </div>
+  <footer class="footer border text">
+    Copyright Olde Worlde Phunne
+  </footer>
+  <!-- custom js -->
+  <script type="module" src="./JS/mazeGame.js"></script>
 </body>
 
 </html>
