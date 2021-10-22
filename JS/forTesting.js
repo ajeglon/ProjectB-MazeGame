@@ -1,30 +1,26 @@
-// import {levels} from './Levels/easy-level'
+function woof(str) {
+  if (typeof str !== "string") {
+    return;
+  }
+  return str.length + 'woof!';
+}
 
-// mazeGame.prototype.runMenu = function(event) { // needs work
-//   if (event.keyCode != 13) {
-//     return
-//   } else if (event.keycode = 13) {
-//     this.gamestate == 1;
-//     var elem = document.getElementById('menu');
-//     return elem.parentNode.removeChild(elem);
-//     init();
-//   }
-// }
+module.exports = woof;
 
 let levels = [];
 levels[0] = {
   map: [
-    [1, 1, 1, 0, 1, 0, 0, 0, 1, 0],
-    [1, 0, 0, 0, 0, 0, 1, 0, 1, 0],
-    [1, 0, 1, 1, 0, 0, 1, 0, 0, 0],
-    [0, 0, 1, 1, 1, 0, 1, 1, 1, 0],
-    [0, 0, 0, 1, 0, 0, 1, 0, 1, 0],
-    [1, 1, 0, 0, 0, 1, 1, 0, 1, 0],
-    [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
-    [0, 1, 0, 1, 0, 0, 0, 0, 1, 1],
-    [0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 1, 1, 1, 0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+    [1, 1, 1, 2, 1, 2, 2, 2, 1, 2],
+    [1, 2, 2, 2, 0, 0, 1, 2, 1, 2],
+    [1, 2, 1, 1, 0, 0, 1, 2, 2, 2],
+    [0, 0, 1, 1, 1, 2, 1, 1, 1, 2],
+    [0, 0, 2, 1, 2, 2, 1, 2, 1, 2],
+    [1, 1, 2, 2, 2, 1, 1, 2, 1, 2],
+    [2, 2, 2, 1, 0, 0, 1, 2, 2, 2],
+    [2, 1, 2, 1, 0, 0, 2, 2, 1, 1],
+    [2, 1, 2, 2, 2, 2, 1, 0, 0, 0],
+    [0, 0, 1, 1, 1, 2, 1, 0, 0, 0],
+    [0, 0, 1, 2, 2, 2, 2, 2, 1, 2],
   ],
   player: {
     x: 0,
@@ -37,6 +33,7 @@ levels[0] = {
     x: 7,
     y: 4
   },
+  // hasKey: false,
   theme: 'Easy',
   levelDimension: 48,
   playerHealth: 100,
@@ -52,29 +49,54 @@ levels[0] = {
   },
   goblin1: {
     x: 7,
-    y: 6
+    y: 6,
+    damage: 15
   },
   goblin2: {
-    x: 3,
-    y: 1
+    x: 4,
+    y: 1,
+    damage: 15
   },
   goblin3: {
     x: 9,
-    y: 9
+    y: 9,
+    damage: 20
   },
   orc1: {
-    x:2,
-    y:5
+    x: 3,
+    y: 5,
+    damage: 30
   },
   orc2: {
     x: 8,
-    y: 2
+    y: 2,
+    damage: 40
+  },
+  gold1: {
+    x: 2,
+    y: 4
+  },
+  gold2: {
+    x: 4,
+    y: 4
+  },
+  gold3: {
+    x: 0,
+    y: 7
+  },
+  gold4: {
+    x: 7,
+    y: 0
+  },
+  gold5: {
+    x: 9,
+    y: 6
   }
 };
 
 function mazeGame(id, level) {
   this.element = document.getElementById(id);
-  this.tileTypes = ['floor maze-gold', 'wall'];
+  this.tileTypes = ['floor maze-gold', 'wall', 'corridor'];
   this.tileDimension = level.levelDimension;
   this.map = level.map;
   this.theme = level.theme;
@@ -85,11 +107,18 @@ function mazeGame(id, level) {
   this.treasure = { ...level.treasure };
   this.key = { ...level.key }
   this.currentGold = level.currentGold;
-  this.goblin1 = {...level.goblin1};
-  this.goblin2 = {...level.goblin2};
-  this.goblin3 = {...level.goblin3};
-  this.orc1 = {...level.orc1};
-  this.orc2 = {...level.orc2};
+  this.goblin1 = { ...level.goblin1 };
+  this.goblin2 = { ...level.goblin2 };
+  this.goblin3 = { ...level.goblin3 };
+  this.orc1 = { ...level.orc1 };
+  this.orc2 = { ...level.orc2 };
+  this.gold1 = { ...level.gold1 };
+  this.gold2 = { ...level.gold2 };
+  this.gold3 = { ...level.gold3 };
+  this.gold4 = { ...level.gold4 };
+  this.gold5 = { ...level.gold5 };
+  this.hasKey = false;
+  this.gold1Value = level.gold1.value
 }
 
 mazeGame.prototype.populateMap = function () {
@@ -129,73 +158,6 @@ mazeGame.prototype.placeSprite = function (type) {
   let layer = this.element.querySelector('#sprites');
   layer.appendChild(sprite);
   return sprite;
-}
-
-// mazeGame.prototype.createGold = function () { //Needs Work
-//   // element.className = 
-// }
-
-// mazeGame.prototype.addeGold = function () {
-// let mazeGold = document.getElementById('tiles');
-// for (var y = 0; y < this.map.length; ++y) {
-//   for (var x = 0; x < this.map[y].length; ++x) {
-//     let goldCode = this.map[y][x];
-//     let goldType = this.tileTypes[goldCode];
-//     if (goldType === 1) {
-//       mazeGold.className += ' maze-gold'
-//     }
-//     else {
-//       mazeGold.className += ''
-//     }
-//   }
-// let addGold = document.getElementsByClassName('floor');
-
-// addGold.className += '-gold';
-
-// if (addGold = 'floor-gold') {
-//   console.log('Gold')
-// } else {
-//   console.log('No Gold')
-// }
-// }
-
-// let mazeGold = document.getElementById("maze-gold");
-// for (var y = 0; y < this.map.length; ++y) {
-//   for (var x = 0; x < this.map[y].length; ++x) {
-//     let tileCode = this.map[y][x];
-//     let tileType = this.tileTypes[tileCode];
-//     let gold = this.createSprite(x, y, tileType);
-//     if (tileType = 'floor') {
-//       mazeGold.className += "maze-gold"
-//     } else {
-//       mazeGold.classList += ''
-//     }
-
-
-//   }
-
-mazeGame.prototype.collectGold = function () { //Needs work
-  let player = document.getElementById('player');
-  let goldPlacement = document.getElementsByClassName('floor maze-game');
-  // let goldAmount = this.goldValues;
-  let randomGold = this.goldValues[Math.floor(Math.random() * this.goldValues.length)];
-  if (this.player.y == goldPlacement.y &&
-    this.player.x == goldPlacement.x) {
-    goldPlacement.className += ' test';
-    this.player.goldAmount += randomGold
-    console.log(this.player.goldAmount)
-  } else {
-    console.log('No Gold')
-  }
-  console.log(this.player.goldAmount)
-}
-
-
-mazeGame.prototype.keyboardListener = function () {
-  document.addEventListener('keydown', event => {
-    this.movePlayer(event);
-    this.checkGoal();
-  });
 }
 
 mazeGame.prototype.movePlayerArrows = function (event) {
@@ -315,32 +277,92 @@ mazeGame.prototype.checkGoal = function () {
   }
 }
 
-mazeGame.prototype.checkKey = function () { // Needs Work
+mazeGame.prototype.healthAndGoldButtons = function () {
+  var buttonCreator = document.getElementById('health-and-gold');
+  var playerGold = this.player.currentGold;
+  var playerHealth = this.playerHealth;
+  buttonCreator.innerHTML = '<button id="gold-counter"> Gold: ' + playerGold + '</button>' + '<button id="health-counter"> Health: ' + playerHealth + '</button>'
+}
+
+mazeGame.prototype.checkKey = function () {
+  var player = document.getElementById('player');
+  var keyPlacement = this.key;
+  var key = document.getElementById('key');
+  var playerGetsKey = this.player.hasKey;
+  if (playerGetsKey === false) {
+    if (this.player.y == keyPlacement.y &&
+      this.player.x == keyPlacement.x) {
+      alert("you picked up the key");
+      key.parentNode.removeChild(key);
+      keyPlacement.y = -10;
+      keyPlacement.x = -10;
+      this.player.hasKey = true;
+    }
+  }
+};
+
+mazeGame.prototype.checkGold = function () {
   let player = document.getElementById('player');
-  let playerGetsKey = this.player.hasKey;
-  // let keyPlacement = document.getElementById('key');
-  let keyPlacement = this.key
-  let key = document.getElementById('key')
-  if (this.player.y == keyPlacement.y &&
-    this.player.x == keyPlacement.x) {
-    alert("you picked up the key");
-    playerGetsKey = true;
-    key.parentNode.removeChild(key);
-    keyPlacement.y = -10;
-    keyPlacement.x = -10;
-    console.log(this.player.hasKey)
+  let gold1Value = 20;
+  let gold2Value = 20;
+  let gold3Value = 30;
+  let gold4Value = 40;
+  let gold5Value = 50;
+  let gold1Placement = this.gold1;
+  let gold2Placement = this.gold2;
+  let gold3Placement = this.gold3;
+  let gold4Placement = this.gold4;
+  let gold5Placement = this.gold5;
+  var playerGold = this.player.currentGold;
+  let gold1 = document.getElementById('gold1');
+  let gold2 = document.getElementById('gold2');
+  let gold3 = document.getElementById('gold3');
+  let gold4 = document.getElementById('gold4');
+  let gold5 = document.getElementById('gold5');
+  console.log(playerGold)
+  if (this.player.y == gold1Placement.y &&
+    this.player.x == gold1Placement.x) {
+    gold1.parentNode.removeChild(gold1);
+    gold1Placement.y = -10;
+    gold1Placement.x = -10;
+    playerGold += gold1Value;
+    console.log(playerGold)
+    console.log(this.playerGold)
+    console.log(this.player.playerGold)
+    this.updateGold();
+    return
   }
-  else {
-    player.className += ''
+  if (this.player.y == gold2Placement.y &&
+    this.player.x == gold2Placement.x) {
+    gold2.parentNode.removeChild(gold2);
+    gold2Placement.y = -10;
+    gold2Placement.x = -10;
   }
-  // }
-  // if (player.hasKey === 1) {
-  //   console.log('player has key')
-  // } else if (player.hasKey === 0) {
-  //   console.log('player does not have key')
-  // } else {
-  //   console.log('somethings not working')
-  // }
+  if (this.player.y == gold3Placement.y &&
+    this.player.x == gold3Placement.x) {
+    gold3.parentNode.removeChild(gold3);
+    gold3Placement.y = -10;
+    gold3Placement.x = -10;
+  }
+  if (this.player.y == gold4Placement.y &&
+    this.player.x == gold4Placement.x) {
+    gold4.parentNode.removeChild(gold4);
+    gold4Placement.y = -10;
+    gold4Placement.x = -10;
+  }
+  if (this.player.y == gold5Placement.y &&
+    this.player.x == gold5Placement.x) {
+    gold5.parentNode.removeChild(gold5);
+    gold5Placement.y = -10;
+    gold5Placement.x = -10;
+  }
+}
+
+mazeGame.prototype.updateGold = function () {
+  var playerGold = this.currentGold;
+  var goldCounter= document.getElementById('gold-counter');
+  goldCounter.innerHTML = 'Gold: ' + toString.playerGold;
+
 }
 
 mazeGame.prototype.checkTreasure = function () { //Needs Work
@@ -348,10 +370,18 @@ mazeGame.prototype.checkTreasure = function () { //Needs Work
   let doesPlayerHaveKey = this.player.hasKey;
   let treasurePlacement = this.treasure;
   let treaure = document.getElementById('treasure');
+  let playerGold = this.player.currentGold;
   if (this.player.y == treasurePlacement.y &&
     this.player.x == treasurePlacement.x &&
     doesPlayerHaveKey == true) {
     alert('Treasure chest opened')
+    treaure.parentNode.removeChild(treaure);
+    treasurePlacement.y = -10;
+    treasurePlacement.x = -10;
+    playerGold += 100;
+    // healthAndGoldButtons();
+    console.log(this.player.currentGold)
+    console.log(playerGold)
   } else if (this.player.y == treasurePlacement.y &&
     this.player.x == treasurePlacement.x &&
     doesPlayerHaveKey == false) {
@@ -370,7 +400,8 @@ mazeGame.prototype.keyboardListener = function () {
     this.checkGoal();
     this.checkKey();
     this.checkTreasure();
-    this.collectGold();
+    this.checkGold();
+    // this.collectGold();
   });
 }
 
@@ -409,19 +440,13 @@ mazeGame.prototype.collide = function () { //needs work
     obj.player.element.className = 'player';
   }, 200);
   return 0;
-
-  // this.player.element.className += ' collide'
-  // let obj = this;
-  // window.setTimeout(function () {
-  //   if (obj.player.element.contains('hasKey')) {
-  //     obj.placeSprite.element.className = 'player hasKey';
-  //   } else if (obj.player.element.className == 'player') {
-  //     obj.player.element.className = 'player';
-  //   }
-  // }, 200)
-  // return 0;
-
 };
+
+// mazeGame.prototype.runMenu = function () { //Needs Work
+//   var elem = document.getElementById('menu');
+//   return elem.parentNode.removeChild(elem);
+//   init();
+// }
 
 function init() {
   let myGame = new mazeGame('maze-game-container-1', levels[0]);
@@ -435,25 +460,28 @@ function init() {
   myGame.placeSprite('goblin3');
   myGame.placeSprite('orc1');
   myGame.placeSprite('orc2');
+  myGame.placeSprite('gold1');
+  myGame.placeSprite('gold2');
+  myGame.placeSprite('gold3');
+  myGame.placeSprite('gold4');
+  myGame.placeSprite('gold5');
   let playerSprite = myGame.placeSprite('player');
   myGame.player.element = playerSprite;
   myGame.keyboardListener();
   myGame.buttonListeners();
-  myGame.collectGold();
-  // console.log(myGame.player.hasKey)
+  myGame.healthAndGoldButtons();
+  // myGame.collectGold();
+  // myGame.createGold();
   // console.log(myGame.player.playerHealth)
-  // console.log(myGame.player.goldAmount)
+  console.log(myGame.player.currentGold)
 }
 
-// mazeGame.prototype.runMenu = function () { //Needs Work
-//   var elem = document.getElementById('menu');
-//   return elem.parentNode.removeChild(elem);
-//   init();
-// }
 
-  init();
+
+init();
 
   // function menu(){
   //   runMenu();
   // };
+
 
