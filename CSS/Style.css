@@ -4,20 +4,16 @@ body {
   text-align: center;
   background-color: rgb(78, 140, 255);
 }
-
 #main-head {
   background-color: rgb(24, 24, 24);
 }
-
 .heading {
   font-family: 'IM Fell English SC', serif;
   font-weight: bold;
 }
-
 #game-heading {
   background-color: rgb(94, 94, 94);
 }
-
 ul {
   list-style-type: none;
   margin: 0;
@@ -25,13 +21,11 @@ ul {
   overflow: hidden;
   background-color: #333;
 }
-
 li {
   float: right;
   border-left: 1px solid rgb(236, 235, 235);
   border-top: 1px solid rgb(236, 235, 235);
 }
-
 li a {
   display: block;
   color: rgb(236, 235, 235);
@@ -39,25 +33,20 @@ li a {
   padding: 14px 16px;
   text-decoration: none;
 }
-
 li a:hover {
   background-color: rgb(24, 24, 24);
 }
-
 .text {
   color: rgb(236, 235, 235);
 }
-
 #home {
   float: left;
   border-right: 1px solid rgb(236, 235, 235);
 }
-
 #maze-map-and-controls.success{
   background-color: #b7f0b7;
   transition: 0.2s ease;
 }
-
 .maze-game-container {
   margin: 0px auto;
   font-family: 'Tangerine', cursive;
@@ -70,29 +59,24 @@ li a:hover {
   border-top: 5px solid rgb(207, 207, 207);
   border-left: 5px solid rgb(207, 207, 207);
 }
-
 #maze-map-and-controls {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 10px;
 }
-
 p {
   padding: 0px;
   text-align: center;
 }
-
 .maze-map {
   position: relative;
   margin: 0px auto;
 }
-
 div.layer, 
 div.layer div {
   position: absolute;
 }
-
 .Easy .floor {
   background-color: rgb(116, 116, 116);
   border: 2px solid rgb(88, 88, 88);
@@ -101,29 +85,29 @@ div.layer div {
   background-color: rgb(146, 93, 31);
   border: 2px solid rgb(180, 114, 39);
 }
-
 .Easy .corridor {
   background-color: rgb(90, 90, 90);
   border: 2px solid rgb(114, 65, 8);
 }
-
 .player, 
 .exit {
   transform-origin: center;
   transform:scale(0.85);
 }
-
 .player {
-  background-color: #fff;
-  border: 2px solid gold;
   transition: left 0.2s linear, top 0.2s linear;
+  transform: scale(1.1);
+  background-image: url(/images/knight.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
 .exit {
-  background-color: #000;
-  border: 2px solid gold;
+  background-image: url(/images/door.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
 /* .maze-gold {
   transform-origin: center;
   transform: scale(0.4);
@@ -131,23 +115,24 @@ div.layer div {
   border: 1px solid #000;
   border-radius: 50%;
 } */
-
 .key {
   transform-origin: center;
-  transform: scale(0.4);
-  background-color: silver;
-  border: 1px solid #000;
+  transform: scale(0.9);
   border-radius: 0px !important;
+  background-image: url(/images/keys.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
 .treasure {
   transform-origin: center;
-  transform: scale(0.6);
-  background-color: rgb(119, 78, 3);
-  border: 1px solid #000;
+  transform: scale(0.9);
   border-radius: 0px !important;
+  background-image: url(/images/chest.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
 #success-msg {
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -158,12 +143,10 @@ div.layer div {
   -webkit-text-stroke: 0.2px black;
   width: calc(100% - 8px);
 }
-
 #maze-map-and-controls.success #success-msg{
   opacity: 1;
   transition: opacity 0.2 ease;
 }
-
 .player-console{
   background-color: #98720b;
   border-top: 5px solid #c9970e;
@@ -172,31 +155,26 @@ div.layer div {
   border-right: 5px solid #5c4505;
   min-height: 125px;
 }
-
 #stats {
   float: right;
 }
-
 .footer {
   font-family: 'IM Fell English SC', serif;
   background-color: rgb(24, 24, 24);
   text-align: right;
   font-weight: bold;
 }
-
 .border {
   border-bottom: 5px solid rgb(78, 78, 78);
   border-right: 5px solid rgb(78, 78, 78);
   border-top: 5px solid rgb(207, 207, 207);
   border-left: 5px solid rgb(207, 207, 207);
 }
-
 .movement-buttons {
   float: left;
   margin-left: 10px;
   text-align: center;
 }
-
 .movement-buttons button {
   width: 38px;
   height: 38px;
@@ -209,7 +187,6 @@ div.layer div {
   cursor: pointer;
   position: relative;
 }
-
 #stats button {
   background-color: rgb(94, 94, 94);
   border-bottom: 1px solid rgb(78, 78, 78);
@@ -218,31 +195,26 @@ div.layer div {
   border-left: 1px solid rgb(207, 207, 207);
   border-radius: 5px;
 }
-
 #instruction-text {
   background-color: #000;
   height: 600px;
 }
-
 .movement-buttons #horiz {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 button#right {
   margin-left: 5px;
 }
 button#left {
   margin-right: 5px;
 }
-
 .movement-buttons button::before {
   content:'';
   width: 0px;
   position: absolute;
 }
-
 button#left::before {
   border-top: 10px solid transparent;
   border-right: 15px solid #000;
@@ -271,7 +243,6 @@ button#down::before {
   left: 9px;
   top: 12px;
 }
-
 @keyframes wobble {
   0% { transform: scale(0.85) translate(1px, 1px); }
   10% { transform: scale(0.85) translate(-1px, -2px); }
@@ -285,26 +256,21 @@ button#down::before {
   90% { transform: scale(0.85) translate(1px, 2px); }
   100% { transform: scale(0.85) translate(1px, -2px);; }
 }
-
 .player.collide {  
   animation: wobble 0.2s;
   animation-iteration-count: infinite;
 }
-
 #attack-and-defend button{
   width: 200px;
   height: 50px;
 }
-
 #health-and-gold button {
   width: 200px;
   height: 50px;
 }
-
 #health-and-gold {
   margin-top: -5px;
 }
-
 #menu {
   background-color: #000;
   height: 500px;
@@ -313,30 +279,32 @@ button#down::before {
   text-align: center;
   vertical-align: middle;
 }
-
 #menu :hover {
   font-weight: bold;
   color: gold;
   background-color: aqua;
 }
-
 .goblin1, .goblin2, .goblin3 {
   transform-origin: center;
-  transform: scale(0.7);
-  background-color: rgb(22, 201, 22);
-  border: 1px solid rgb(114, 56, 2);
+  transform: scale(1);
+  background-image: url(/images/goblin.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
 .orc1, .orc2 {
   transform-origin: center;
-  transform: scale(0.9);
-  background-color: green;
-  border: 1px solid brown;
+  transform: scale(1);
+  background-image: url(/images/orc.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
 .gold1, .gold2, .gold3, .gold4, .gold5 {
   transform-origin: center;
-  transform: scale(0.2);
-  background-color: gold;
-  border: 1px solid blue;
+  transform: scale(0.9);
+  background-image: url(/images/gold.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
