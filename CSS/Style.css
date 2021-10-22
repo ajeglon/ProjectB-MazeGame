@@ -308,3 +308,44 @@ button#down::before {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.Medium .floor {
+  background-color: #7bb76d;
+  border: 2px solid #1e3819;
+}
+.Medium .wall {
+  background-color: #806d51;
+  border: 2px solid #f0a637;
+}
+.Medium .corridor {
+  background-color: #7bb76d;
+  border: 2px solid #1e3819;
+}
+
+.Hard .floor {
+  background-color: #ddd376;
+  border: 2px solid #888a1e;
+}
+.Hard .wall {
+  background-color: #60611b;
+  border: 2px solid #e5e918;
+} 
+.Hard .corridor {
+  background-color: #ddd376;
+  border: 2px solid #888a1e;
+}
+
+.Ultimate .floor {
+  background-color: #98720b;
+  border: 2px solid #5f4704;
+}
+
+.Ultimate .wall {
+  background-color: #a00707;
+  border: 2px solid #f11010;
+}
+
+.Ultimate .corridor {
+  background-color: #98720b;
+  border: 2px solid #5f4704;
+}

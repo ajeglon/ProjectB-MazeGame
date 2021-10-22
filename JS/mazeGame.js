@@ -1,4 +1,4 @@
-import { levels } from './easyLevel.js'
+import { levels } from './levels.js'
 function mazeGame(id, level) {
   this.element = document.getElementById(id);
   this.tileTypes = ['floor maze-gold', 'wall', 'corridor'];
@@ -32,6 +32,7 @@ function mazeGame(id, level) {
   this.gold5Value = level.gold5.value;
   this.playerAttack = level.playerAttack;
   this.playerDefence = level.playerDefence;
+  this.level_idx = 0;
 }
 
 mazeGame.prototype.populateMap = function () {
@@ -194,14 +195,14 @@ mazeGame.prototype.updateHoriz = function (sprite) {
 mazeGame.prototype.checkGoal = function () {
   let mapAndControls = document.getElementById('maze-map-and-controls');
   if (this.player.y == this.exit.y &&
-    this.player.x == this.exit.x && 
+    this.player.x == this.exit.x &&
     this.player.currentGold == 270) {
     mapAndControls.className = 'success';
   }
   else if (this.player.y == this.exit.y &&
     this.player.x == this.exit.x) {
-      alert('Retrieve all the gold to pass')
-    }
+    alert('Retrieve all the gold to pass')
+  }
   else {
     mapAndControls.className = '';
   }
@@ -247,7 +248,7 @@ mazeGame.prototype.checkEnemy = function () {
   let goblin3Placement = this.goblin3;
   let goblin3Damage = 20;
   let orc1Placement = this.orc1;
-  let orc1Damage = 300;
+  let orc1Damage = 50;
   let orc2Placement = this.orc2;
   let orc2Damage = 40;
   let playerHealth = this.player.playerHealth;
@@ -365,16 +366,15 @@ mazeGame.prototype.updateHealth = function () {
   var playerGold = this.currentGold;
   var healthCounter = document.getElementById('health-counter');
   healthCounter.innerHTML = 'Health: ' + this.player.playerHealth;
-  // if (this.player.playerHealth <= 0) {
-  //   alert('You have taken too much damage and perished');
-  //   this.restart();
-  // }
+  if (this.player.playerHealth <= 0) {
+    alert('You have taken too much damage and perished');
+    this.restart();
+  }
 }
 
-// mazeGame.prototype.restart = function () { //needs work
-//   alert('Click OK to restart game');
-//   init();
-// }
+mazeGame.prototype.restart = function () { //needs work
+  location.reload();
+}
 
 mazeGame.prototype.checkTreasure = function () { //Needs Work
   let player = document.getElementById('player');
@@ -490,6 +490,48 @@ mazeGame.prototype.collide = function () { //needs work
 //   return elem.parentNode.removeChild(elem);
 //   init();
 // }
+
+mazeGame.prototype.addMazeListener = function () {
+  let map = this.element.querySelector('.maze-map');
+  let obj = this;
+  map.addEventListener('mousedown', function (e) {
+    if (obj.player.y != obj.exit.y ||
+      obj.player.x != obj.exit.x) {
+      return;
+    }
+    obj.changeLevel();  
+    let layers = obj.el.querySelectorAll('.layer');
+      
+       for (layer of layers) {
+           layer.innerHTML = '';
+       }
+       obj.placeLevel();
+       obj.checkGoal();
+  });
+}
+
+mazeGame.prototype.changeLevel = function () {
+
+  this.level_idx++;
+
+  if (this.level_idx > levels.length - 1) {
+    this.level_idx = 0;
+  }
+  let level = levels[this.level_idx];
+  this.map = level.map;
+
+  this.theme = level.theme;
+  this.player = { ...level.player };
+  this.exit = { ...level.exit };
+}
+
+mazeGame.prototype.addListeners = function () {
+
+  this.keyboardListener();
+
+  this.buttonListeners();
+  this.addMazeListener();
+}
 
 function init() {
   let myGame = new mazeGame('maze-game-container-1', levels[0]);
